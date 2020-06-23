@@ -65,6 +65,12 @@ if __name__ == "__main__" :
     )
     app.add_handler(incoming_message_handler)
     #
+    incoming_message_handler = MessageHandler(
+        incoming_message_f,
+        filters=Filters.regex(r'http') & Filters.chat(chats=AUTH_CHANNEL)
+    )
+    app.add_handler(incoming_message_handler)
+    #
     incoming_gdrive_message_handler = MessageHandler(
         incoming_gdrive_message_f,
         filters=Filters.command([f"{GLEECH_COMMAND}"]) & Filters.chat(chats=AUTH_CHANNEL)
