@@ -71,7 +71,7 @@ async def unzip_me(input_directory):
             "-d",
             f"{uncompressed_file_name}"
         ]
-        process = await asyncio.create_subprocess_exec(
+        process = await asyncio.create_subprocess_shell(
             *unzipper_command,
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
