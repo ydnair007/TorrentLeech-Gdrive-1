@@ -6,14 +6,24 @@
 #
 # All rights reserved.
 
+# the logging things
+import logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+LOGGER = logging.getLogger(__name__)
+
 import asyncio
 from tobrot import UPSTREAM_REMOTE, UPSTREAM_REPO, HEROKU_GIT_URL, HEROKU_APP
+from tobrot import config
 
 from git import Repo
 from git.exc import GitCommandError
 
 
-async def check_update(message: Message):
+async def check_update(client, message):
     """ check or do updates """
     await message.edit("`Checking for updates, please wait....`")
     repo = Repo()
