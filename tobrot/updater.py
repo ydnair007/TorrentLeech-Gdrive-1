@@ -7,6 +7,7 @@
 # All rights reserved.
 
 import asyncio
+from tobrot import UPSTREAM_REMOTE, UPSTREAM_REPO, HEROKU_GIT_URL, HEROKU_APP
 
 from git import Repo
 from git.exc import GitCommandError
@@ -45,7 +46,7 @@ async def check_update(message: Message):
     try:
         for i in repo.iter_commits(f'HEAD..{UPSTREAM_REMOTE}/{branch}'):
             out += (f"🔨 **#{i.count()}** : "
-                    f"[{i.summary}]({Config.UPSTREAM_REPO.rstrip('/')}/commit/{i}) "
+                    f"[{i.summary}]({UPSTREAM_REPO.rstrip('/')}/commit/{i}) "
                     f"👷 __{i.committer}__\n\n")
     except GitCommandError as error:
         await message.err(error, del_in=5)
