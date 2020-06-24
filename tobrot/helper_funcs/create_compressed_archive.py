@@ -64,13 +64,17 @@ async def unzip_me(input_directory):
             #compressed_file_name = base_dir_name[0:(64 - suffix_extention_length)]
             #compressed_file_name += ".tar.gz"
         # fix for https://t.me/c/1434259219/13344
-        process = await asyncio.create_subprocess_shell([
+        unzipper_command = [
             "unzip",
             "-o",
             f"{base_dir_name}",
             "-d",
-            f"{uncompressed_file_name}"],
-            stdout=asyncio.subprocess.PIPE
+            f"{uncompressed_file_name}"
+        ]
+        process = await asyncio.create_subprocess_exec(
+            *unzipper_command,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
         )
         # Wait for the subprocess to finish
         stdout, stderr = await process.communicate()
