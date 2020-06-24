@@ -1,4 +1,15 @@
 import os
+import os
+import sys
+import shutil
+from typing import Set
+
+import heroku3
+from git import Repo
+from git.exc import InvalidGitRepositoryError, GitCommandError
+from pySmartDL import SmartDL
+from dotenv import load_dotenv
+from pyrogram import Filters
 
 class Config(object):
     # get a token from @BotFather
@@ -41,3 +52,38 @@ class Config(object):
     GLEECH_COMMAND = os.environ.get("GLEECH_COMMAND", "gleech")
     INDEX_LINK = os.environ.get("INDEX_LINK", "")
     TELEGRAM_LEECH_COMMAND_G = os.environ.get("TELEGRAM_LEECH_COMMAND_G", "tleech")
+    UPSTREAM_REPO = os.environ.get("UPSTREAM_REPO", "https://github.com/gautamajay52/TorrentLeech-Gdrive")
+    HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
+    UPSTREAM_REMOTE = 'upstream'
+    HEROKU_APP = None
+    HEROKU_GIT_URL = None
+    
+    if Config.HEROKU_API_KEY:
+    #_LOG.info("Checking Heroku App...")
+    for heroku_app in heroku3.from_key(Config.HEROKU_API_KEY).apps():
+        if (heroku_app and Config.HEROKU_APP_NAME
+                and heroku_app.name == Config.HEROKU_APP_NAME):
+           # _LOG.info("Heroku App : %s Found...", heroku_app.name)
+            Config.HEROKU_APP = heroku_app
+            Config.HEROKU_GIT_URL = heroku_app.git_url.replace(
+                "https://", "https://api:" + Config.HEROKU_API_KEY + "@")
+            if not os.path.isdir(os.path.join(os.getcwd(), '.git')):
+                tmp_heroku_git_path = os.path.join(os.getcwd(), 'tmp_heroku_git')
+               # _LOG.info("Cloning Heroku GIT...")
+                Repo.clone_from(Config.HEROKU_GIT_URL, tmp_heroku_git_path)
+                shutil.move(os.path.join(tmp_heroku_git_path, '.git'), os.getcwd())
+                shutil.rmtree(tmp_heroku_git_path)
+            break
+
+#_LOG.info("Checking REPO...")
+try:
+    _REPO = Repo()
+except InvalidGitRepositoryError:
+    _REPO = Repo.init()
+if Config.UPSTREAM_REMOTE not in _REPO.remotes:
+    _REPO.create_remote(Config.UPSTREAM_REMOTE, Config.UPSTREAM_REPO)
+try:
+    _REPO.remote(Config.UPSTREAM_REMOTE).fetch()
+except GitCommandError as error:
+    #_LOG.error(error)
+    sys.exit()
