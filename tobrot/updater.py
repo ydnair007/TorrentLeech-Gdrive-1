@@ -16,7 +16,7 @@ async def check_update(message: Message):
     """ check or do updates """
     await message.edit("`Checking for updates, please wait....`")
     repo = Repo()
-    ups_rem = repo.remote(Config.UPSTREAM_REMOTE)
+    ups_rem = repo.remote(UPSTREAM_REMOTE)
     try:
         ups_rem.fetch()
     except GitCommandError as error:
@@ -43,7 +43,7 @@ async def check_update(message: Message):
         return
     out = ''
     try:
-        for i in repo.iter_commits(f'HEAD..{Config.UPSTREAM_REMOTE}/{branch}'):
+        for i in repo.iter_commits(f'HEAD..{UPSTREAM_REMOTE}/{branch}'):
             out += (f"🔨 **#{i.count()}** : "
                     f"[{i.summary}]({Config.UPSTREAM_REPO.rstrip('/')}/commit/{i}) "
                     f"👷 __{i.committer}__\n\n")
@@ -69,7 +69,7 @@ async def check_update(message: Message):
             '`Now restarting... Wait for a while!`', del_in=3)
         asyncio.get_event_loop().create_task(userge.restart(update_req=True))
         return
-    if not Config.HEROKU_GIT_URL:
+    if not HEROKU_GIT_URL:
         await message.err("please set heroku things...")
         return
     await message.edit(
@@ -79,8 +79,8 @@ async def check_update(message: Message):
         '* After restarted successfully, check updates again :)')
     if "heroku" in repo.remotes:
         remote = repo.remote("heroku")
-        remote.set_url(Config.HEROKU_GIT_URL)
+        remote.set_url(HEROKU_GIT_URL)
     else:
-        remote = repo.create_remote("heroku", Config.HEROKU_GIT_URL)
+        remote = repo.create_remote("heroku", HEROKU_GIT_URL)
     remote.push(refspec=f'{branch}:master', force=True)
-    await message.edit(f"**HEROKU APP : {Config.HEROKU_APP.name} is up-to-date with [{branch}]**")
+    await message.edit(f"**HEROKU APP : {HEROKU_APP.name} is up-to-date with [{branch}]**")
