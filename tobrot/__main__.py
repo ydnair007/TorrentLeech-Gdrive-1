@@ -73,6 +73,12 @@ if __name__ == "__main__" :
     )
     app.add_handler(incoming_gdrive_message_handler)
     #
+     incoming_check_update_handler = MessageHandler(
+        check_update,
+        filters=Filters.command(["update"]) & Filters.chat(chats=AUTH_CHANNEL)
+    )
+    app.add_handler(incoming_check_update_handler)
+    #
     incoming_telegram_download_handler = MessageHandler(
         down_load_media_f,
         filters=Filters.command([f"{TELEGRAM_LEECH_COMMAND_G}"]) & Filters.chat(chats=AUTH_CHANNEL)
