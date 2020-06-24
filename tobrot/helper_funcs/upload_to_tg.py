@@ -124,31 +124,31 @@ async def upload_to_tg(
 #
 
 async def upload_to_gdrive(file_upload, message):
-    subprocess.Popen(('touch', 'rclone.conf'), stdout = subprocess.PIPE)
+    await asyncio.create_subprocess_shell(('touch', 'rclone.conf'), stdout = asyncio.subprocess.PIPE)
     with open('rclone.conf', 'a', newline="\n") as fole:
         fole.write("[DRIVE]\n")
         fole.write(f"{RCLONE_CONFIG}")
     destination = f'{DESTINATION_FOLDER}'
     if os.path.isfile(file_upload):
-        tmp = subprocess.Popen(['rclone', 'copy', '--config=rclone.conf', f'{file_upload}', 'DRIVE:'f'{destination}', '-v'], stdout = subprocess.PIPE)
-        out = tmp.communicate()
+        tmp = await asyncio.create_subprocess_shell(['rclone', 'copy', '--config=rclone.conf', f'{file_upload}', 'DRIVE:'f'{destination}', '-v'], stdout = asyncio.subprocess.PIPE)
+        out = await tmp.communicate()
         print(out)
         indexurl = f"{INDEX_LINK}/{file_upload}"
         g_link = requote_uri(indexurl)
         time.sleep(4)
         await message.edit_text(f'{file_upload} has been Uploaded successfully to your cloud 🤒\n\n Index Url: <a href="{g_link}">here</a>')
-        #os.remove(file_upload)
+        os.remove(file_upload)
     else:
         tt= os.path.join(destination, file_upload)
         print(tt)
-        tmp = subprocess.Popen(['rclone', 'copy', '--config=rclone.conf', f'{file_upload}', 'DRIVE:'f'{tt}', '-v'], stdout = subprocess.PIPE)
-        out = tmp.communicate()
+        tmp = await asyncio.create_subprocess_shell(['rclone', 'copy', '--config=rclone.conf', f'{file_upload}', 'DRIVE:'f'{tt}', '-v'], stdout = asyncio.subprocess.PIPE)
+        out = await tmp.communicate()
         print(out)
         indexurl = f"{INDEX_LINK}/{file_upload}/"
         g_link = requote_uri(indexurl)
         time.sleep(4)
         await message.edit_text(f'Folder has been Uploaded successfully to {tt} in your cloud 🤒\n\n Index Url: <a href="{g_link}">here</a>')
-        #shutil.rmtree(file_upload)
+        shutil.rmtree(file_upload)
 
 #
 
