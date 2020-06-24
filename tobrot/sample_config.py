@@ -1,3 +1,12 @@
+# the logging things
+import logging
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+LOGGER = logging.getLogger(__name__)
+
 import os
 import os
 import sys
@@ -59,11 +68,11 @@ class Config(object):
     HEROKU_GIT_URL = None
     
     if Config.HEROKU_API_KEY:
-    #_LOG.info("Checking Heroku App...")
+    LOGGER.info("Checking Heroku App...")
     for heroku_app in heroku3.from_key(Config.HEROKU_API_KEY).apps():
         if (heroku_app and Config.HEROKU_APP_NAME
                 and heroku_app.name == Config.HEROKU_APP_NAME):
-           # _LOG.info("Heroku App : %s Found...", heroku_app.name)
+            LOGGER.info("Heroku App : %s Found...", heroku_app.name)
             Config.HEROKU_APP = heroku_app
             Config.HEROKU_GIT_URL = heroku_app.git_url.replace(
                 "https://", "https://api:" + Config.HEROKU_API_KEY + "@")
@@ -75,7 +84,7 @@ class Config(object):
                 shutil.rmtree(tmp_heroku_git_path)
             break
 
-#_LOG.info("Checking REPO...")
+LOGGER.info("Checking REPO...")
 try:
     _REPO = Repo()
 except InvalidGitRepositoryError:
@@ -85,5 +94,5 @@ if Config.UPSTREAM_REMOTE not in _REPO.remotes:
 try:
     _REPO.remote(Config.UPSTREAM_REMOTE).fetch()
 except GitCommandError as error:
-    #_LOG.error(error)
+    LOGGER.error(error)
     sys.exit()
