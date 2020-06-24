@@ -6,3 +6,5 @@ pySmartDL
 https://github.com/pyrogram/pyrogram/archive/asyncio-dev.zip
 tgcrypto
 git+https://github.com/FaArIsH/youtube-dl
+heroku3
+gitpython
