@@ -154,9 +154,13 @@ async def upload_to_gdrive(file_upload, message):
         print(indexurl)
         tam_link = requests.utils.requote_uri(indexurl)
         print(tam_link)
+        send = f'🤖: {file_upload} has been Uploaded successfully to your cloud 🤒'
+        send += f'\n\n☁️ Cloud URL:  <a href="{gau_link}">FileLink</a>'
+        send += f'\nℹ️ Direct URL:  <a href="{tam_link}">IndexLink</a>'
         #s_tr = '-'*40
-        await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
-        await message.edit_text(f"""🤖: {file_upload} has been Uploaded successfully to your cloud 🤒\n\n☁️ Cloud URL:  <a href="{gau_link}">FileLink</a>\nℹ️ Direct URL:  <a href="{tam_link}">IndexLink</a>""")
+        await message.edit_text(send)
+        #await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
+        #await message.edit_text(f"""🤖: {file_upload} has been Uploaded successfully to your cloud 🤒\n\n☁️ Cloud URL:  <a href="{gau_link}">FileLink</a>\nℹ️ Direct URL:  <a href="{tam_link}">IndexLink</a>""")
         os.remove(file_upload)
     else:
         tt= os.path.join(destination, file_upload)
