@@ -158,6 +158,7 @@ async def upload_to_gdrive(file_upload, message):
         send += f'\n\n☁️ Cloud URL:  <a href="{gau_link}">FileLink</a>'
         send += f'\nℹ️ Direct URL:  <a href="{tam_link}">IndexLink</a>'
         #s_tr = '-'*40
+        print(send)
         await message.edit_text(send)
         #await asyncio.sleep(EDIT_SLEEP_TIME_OUT)
         #await message.edit_text(f"""🤖: {file_upload} has been Uploaded successfully to your cloud 🤒\n\n☁️ Cloud URL:  <a href="{gau_link}">FileLink</a>\nℹ️ Direct URL:  <a href="{tam_link}">IndexLink</a>""")
