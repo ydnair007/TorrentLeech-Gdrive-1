@@ -156,8 +156,8 @@ async def upload_to_gdrive(file_upload, message):
         tam_link = requests.utils.requote_uri(f"{indexurl}")
         print(tam_link)
         send = f'🤖: {file_upload} has been Uploaded successfully to your cloud 🤒'
-        send += f'\n\n ☁️ Cloud URL: <a href="{gau_link}">FileLink</a>'
-        send += f'\n ℹ️ Direct URL: <a href="{tam_link}">IndexLink</a>'
+        send += f'''\n\n ☁️ Cloud URL: <a href="{gau_link}">FileLink</a>'''
+        send += f'''\n ℹ️ Direct URL: <a href="{tam_link}">IndexLink</a>'''
         #s_tr = '-'*40
         print(send)
         await message.edit_text(send)
