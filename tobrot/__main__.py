@@ -83,18 +83,6 @@ if __name__ == "__main__" :
         incoming_purge_message_f,
         filters=Filters.command(["purge"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
-    app.add_handler(incoming_purge_message_handler)
-    #
-    incoming_youtube_dl_handler = MessageHandler(
-        incoming_youtube_dl_f,
-        filters=Filters.command([f"{YTDL_COMMAND}"]) & Filters.chat(chats=AUTH_CHANNEL)
-    )
-    app.add_handler(incoming_youtube_dl_handler)
-    #
-    status_message_handler = MessageHandler(
-        status_message_f,
-        filters=Filters.command(["status"]) & Filters.chat(chats=AUTH_CHANNEL)
-    )
     app.add_handler(status_message_handler)
     #
     cancel_message_handler = MessageHandler(
