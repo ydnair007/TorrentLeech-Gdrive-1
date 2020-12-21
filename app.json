@@ -86,7 +86,7 @@
       "required": false
     },
     "YTDL_COMMAND": {
-      "description": "Enter your custom ytdl command like ytdl1@urgroupname and so on. Default is /ytdl.",
+      "description": "Gand maraye Betichod Chutiya chij h. Default is /ytdl.",
       "required": false
     },
     "RCLONE_CONFIG": {
