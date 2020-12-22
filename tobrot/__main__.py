@@ -23,8 +23,6 @@ from tobrot import (
     APP_ID,
     API_HASH,
     AUTH_CHANNEL,
-    LEECH_COMMAND,
-    YTDL_COMMAND,
     GLEECH_COMMAND,
     TELEGRAM_LEECH_COMMAND_G
 )
@@ -59,11 +57,6 @@ if __name__ == "__main__" :
         api_id=APP_ID,
         api_hash=API_HASH,
         workers=343
-    )
-    #
-    incoming_message_handler = MessageHandler(
-        incoming_message_f,
-        filters=Filters.command([f"{LEECH_COMMAND}"]) & Filters.chat(chats=AUTH_CHANNEL)
     )
     app.add_handler(incoming_message_handler)
     #
