@@ -33,10 +33,14 @@ class Config(object):
     UN_FINISHED_PROGRESS_STR = os.environ.get("UN_FINISHED_PROGRESS_STR", "░")
     # add offensive API
     TG_OFFENSIVE_API = os.environ.get("TG_OFFENSIVE_API", None)
-    CUSTOM_FILE_NAME = os.environ.get("CUSTOM_FILE_NAME", "")
-    LEECH_COMMAND = os.environ.get("LEECH_COMMAND", "leech")
-    RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "")
-    DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "TorrentLeech-Gdrive")
+    CUSTOM_FILE_NAME = os.environ.get("CUSTOM_FILE_NAME", "Scotch ")
+    RCLONE_CONFIG = os.environ.get("RCLONE_CONFIG", "type = drive 
+                                   client_id = 1023363715542-659gq0fr64168rsa0up71vc77goj0g99.apps.googleusercontent.com 
+                                   client_secret = KO4utgfVeSloOhGs8wvAVEIk 
+                                   scope = drive 
+                                   root_folder_id = 1BgNi460fFos1qT4vWSn4QKTLdRTSnABC 
+                                   token = {"access_token":"ya29.a0AfH6SMBPs9cXM4J6jdrpEtXmVp7nSrmvuWuwHPIl9F-Nq7XtQeMIsibxLdJcNNNDxdY6fdRbOYskDoo05qw-PyqXrFAFqvp3skXaZNUL79zeSQyiCglRR2Nb_f3AG92nnTZNTvJAoZ0MVo9poq2bCCSfib3mv6sM2M5E5qnT0Ms","token_type":"Bearer","refresh_token":"1//0gvFG8gxY3_08CgYIARAAGBASNwF-L9IrHd-CTZjPKW5KprbgL5inkrnRh9lxlpwYASwV-WOFYCiEUlbVrAJ_RKzmhDTqgd7C_Ro","expiry":"2020-12-22T04:31:02.8079769+05:30"}")
+    DESTINATION_FOLDER = os.environ.get("DESTINATION_FOLDER", "1BgNi460fFos1qT4vWSn4QKTLdRTSnABC")
     GLEECH_COMMAND = os.environ.get("GLEECH_COMMAND", "gleech")
     INDEX_LINK = os.environ.get("INDEX_LINK", "")
     TELEGRAM_LEECH_COMMAND_G = os.environ.get("TELEGRAM_LEECH_COMMAND_G", "tleech")
